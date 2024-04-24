@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import LottieAudioVisualizer from './LottieAudioVisualizer';
 import AudioVisualiser from './AudioVisualiser';
 
 class AudioAnalyser extends Component {
@@ -9,8 +10,7 @@ class AudioAnalyser extends Component {
   }
 
   componentDidMount() {
-    this.audioContext = new (window.AudioContext ||
-      window.webkitAudioContext)();
+    this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
     this.analyser = this.audioContext.createAnalyser();
     this.dataArray = new Uint8Array(this.analyser.frequencyBinCount);
     this.source = this.audioContext.createMediaStreamSource(this.props.audio);
@@ -31,7 +31,12 @@ class AudioAnalyser extends Component {
   }
 
   render() {
-    return <AudioVisualiser audioData={this.state.audioData} />;
+    return (
+      <div>
+        <LottieAudioVisualizer audioData={this.state.audioData} />
+        <AudioVisualiser audioData={this.state.audioData} />
+      </div>
+    );
   }
 }
 
